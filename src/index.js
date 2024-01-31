@@ -9,6 +9,12 @@ function showWeatherDetails(response) {
   windElement.innerHTML = Math.round(response.data.wind.speed);
   let descriptionElement = document.querySelector("#current-description");
   descriptionElement.innerHTML = response.data.condition.description;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `
+http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
 }
 
 function search(event) {
@@ -18,7 +24,6 @@ function search(event) {
   let city = searchInputElement.value;
   let apiKey = "b2a5adcct04b33178913oc335f405433";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-  console.log(apiUrl);
   axios.get(apiUrl).then(showWeatherDetails);
 }
 
