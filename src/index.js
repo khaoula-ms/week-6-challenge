@@ -28,7 +28,7 @@ function searchCity(city) {
 function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
-  searchCity(searchInputElement);
+  searchCity(searchInputElement.value);
 }
 
 function formatDate(date) {
