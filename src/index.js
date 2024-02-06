@@ -1,6 +1,9 @@
 function showWeatherDetails(response) {
   let cityElement = document.querySelector("#current-city");
   cityElement.innerHTML = response.data.city;
+  let currentDateELement = document.querySelector("#current-date");
+  let currentDate = new Date();
+  currentDateELement.innerHTML = formatDate(currentDate);
   let temperatureElement = document.querySelector("#current-temperature-value");
   temperatureElement.innerHTML = Math.round(response.data.temperature.current);
   let humidityElement = document.querySelector("#current-humidity");
@@ -16,15 +19,16 @@ function showWeatherDetails(response) {
 http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
 }
+function searchCity(city) {
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showWeatherDetails);
+}
 
 function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
-  let cityElement = document.querySelector("#current-city");
-  let city = searchInputElement.value;
-  let apiKey = "b2a5adcct04b33178913oc335f405433";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showWeatherDetails);
+  searchCity(searchInputElement);
 }
 
 function formatDate(date) {
@@ -57,7 +61,4 @@ function formatDate(date) {
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 
-let currentDateELement = document.querySelector("#current-date");
-let currentDate = new Date();
-
-currentDateELement.innerHTML = formatDate(currentDate);
+searchCity("paris");
