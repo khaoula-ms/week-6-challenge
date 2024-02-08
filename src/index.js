@@ -57,8 +57,27 @@ function formatDate(date) {
   let formattedDay = days[day];
   return `${formattedDay} ${hours}:${minutes}`;
 }
-
+function displayForcast() {
+  let forecast = document.querySelector("#forecast");
+  let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHtml = "";
+  days.forEach(function (day) {
+    forecastHtml =
+      forecastHtml +
+      ` <div class="row">
+            <div class="col-2">
+              <div class="weather-forcast-date"></div>
+              ${day} <img src="" alt="" />
+              <div class="weather-focast-temperature">
+                <span class="weather-forcast-temperature-maximun">18</span
+                ><span class="weather-forcast-temperature-minimun">12</span>
+              </div>
+            </div>`;
+  });
+  forecast.innerHTML = forecastHtml;
+}
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 
 searchCity("paris");
+displayForcast();
